@@ -1,4 +1,4 @@
-<div class="modal-background" *ngIf="isModalOpen">
+<div class="modal-background">
   <div class="product-container">
     <button class="close-button" (click)="close()">&#10006;</button>
     <h1>Product</h1>
@@ -55,8 +55,9 @@
           <button type="button" (click)="addFeature()">Add Feature</button>
         </div>
       </div>
-
-      <button type="submit">Finish</button>
+      <button *ngIf="isEditMode" (click)="close()">Close</button>
+      <button *ngIf="isEditMode" (click)="editProduct()">update</button>
+      <button *ngIf="!isEditMode" type="submit">Finish</button>
     </form>
   </div>
 </div>

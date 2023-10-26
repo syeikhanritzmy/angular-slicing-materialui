@@ -5,5 +5,5 @@ export interface IProduct {
   expirationDate: string;
   description: string;
   type: string;
-  features?: string[];
+  features?: [{ name: string }];
 }

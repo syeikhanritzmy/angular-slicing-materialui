@@ -13,7 +13,7 @@
   >
     Add Product
   </button>
-  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" >
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
     <!--- Note that these columns can be defined in any order.
           The actual rendered columns are set as a property on the row definition" -->
 
@@ -58,6 +58,7 @@
             color: white;
             margin-top: 1rem;
           "
+          (click)="deleteProductConfirmation(element)"
         >
           delete
         </button>
@@ -78,13 +79,13 @@
 </div>
 <app-add-product-modal
   [product]="selectedProduct"
-  [isModalOpen]="isAddModalOpen"
-  (closeModal)="closeAddModal($event)"
+  *ngIf="isModalOpen"
+  (closeModal)="isModalOpen = $event"
   (outputData)="addProduct($event)"
+  [isEditMode]="true"
 ></app-add-product-modal>
-<!-- <app-edit-product-modal
-  [productData]="editProductData"
-  (saveChanges)="editProduct($event)"
-  (closeModal)="closeEditModal($event)"
-  (updateProductId)="updateProductId($event)"
-></app-edit-product-modal> -->
+<app-delete-product-modal
+  [isDeleteModalOpen]="isDeleteModalOpen"
+  (onCancelDelete)="cancelDelete()"
+  (onConfirmDelete)="confirmDelete()"
+></app-delete-product-modal>

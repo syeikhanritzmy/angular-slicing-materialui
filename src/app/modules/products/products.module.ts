@@ -8,14 +8,13 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ProductsComponent } from './product-list/products.component';
 import { AddProductModalComponent } from './add-product-modal/add-product-modal.component';
 import { DeleteProductModalComponent } from './delete-product-modal/delete-product-modal.component';
-import { EditProductModalComponent } from './edit-product-modal/edit-product-modal.component';
+import { ClarityModule } from '@clr/angular';
 
 @NgModule({
   declarations: [
     AddProductModalComponent,
     ProductsComponent,
     DeleteProductModalComponent,
-    EditProductModalComponent,
   ],
   imports: [
     CommonModule,
@@ -24,6 +23,7 @@ import { EditProductModalComponent } from './edit-product-modal/edit-product-mod
     MatPaginatorModule,
     MatTableModule,
     ReactiveFormsModule,
+    ClarityModule,
   ],
   exports: [ProductsComponent],
 })

@@ -14,10 +14,13 @@ export class ProductsComponent implements OnInit, AfterViewInit {
   pageSizeOptions: number[] = [5, 10, 20, 50, 100];
   pageSize: number = 5;
   displayedColumns: string[] = ['name', 'expiration_date', 'active', 'actions'];
-  isAddModalOpen: boolean = false;
-  // isEditModalOpen: boolean = false;
-  editProductData: IProduct | null = null;
+  isModalOpen: boolean = false;
+
+  isEditMode: boolean = false;
   selectedProduct: any;
+
+  isDeleteModalOpen: boolean = false;
+  selectedProductToDelete: any;
 
   constructor(private productServices: ProductServices) {}
 
@@ -32,28 +35,27 @@ export class ProductsComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
   }
-  isAddModalOpenApp() {
-    return this.isAddModalOpen;
-  }
-  closeAddModal(event: boolean) {
-    this.isAddModalOpen = false;
-  }
-  closeEditModal(event: boolean) {
-    // this.isEditModalOpen = false;
-    this.editProductData = null;
-  }
+
+  // closeAddModal(event: boolean) {
+  //   this.isModalOpen = false;
+  // }
+
   toggleAddModal(product?: any) {
-    this.isAddModalOpen = !this.isAddModalOpen;
-    console.log(product);
+    console.log(this.isModalOpen);
+    this.isModalOpen = true;
     if (product) {
+      this.isEditMode = true;
       this.selectedProduct = product;
+      console.log(this.selectedProduct);
+    } else {
+      this.selectedProduct = null;
     }
   }
   getProducts() {
     this.productServices.getProducts().subscribe((products) => {
-      const filterProduct = products.filter((item, index) => index < 5);
+      // const filterProduct = products.filter((item, index) => index);
 
-      this.dataSource.data = filterProduct;
+      this.dataSource.data = products;
       this.dataSource.paginator = this.paginator;
       this.length = products.length;
     });
@@ -74,9 +76,24 @@ export class ProductsComponent implements OnInit, AfterViewInit {
 
     this.getProducts();
   }
-  // editProduct(product: IProduct) {
-  //   this.editProductData = { ...product };
-  //   this.isEditModalOpen = true;
-  //   this.productId = product.id; // Simpan ID produk ke dalam properti
+
+  // deleteProduct(productId: number) {
+  //   this.productServices.deleteProduct(productId);
+  //   console.log(productId);
   // }
+  deleteProductConfirmation(product: any) {
+    this.selectedProductToDelete = product.id; // Simpan produk yang akan dihapus
+
+    this.isDeleteModalOpen = true; // Tampilkan modal konfirmasi penghapusan
+  }
+
+  cancelDelete() {
+    this.isDeleteModalOpen = false; // Sembunyikan modal konfirmasi penghapusan
+  }
+
+  confirmDelete() {
+    this.productServices.deleteProduct(this.selectedProductToDelete);
+    console.log(this.selectedProductToDelete);
+    this.isDeleteModalOpen = false; // Sembunyikan modal konfirmasi penghapusan setelah penghapusan berhasil
+  }
 }

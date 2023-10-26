@@ -21,8 +21,8 @@ export class ProductServices {
         active: true,
         expirationDate: '2023-12-31',
         description: 'Description for Product 1',
-        type: 'Type A',
-        features: ['Feature 1', 'Feature 2'],
+        type: 'tablet',
+        features: [{ name: 'sidjasi' }],
       },
       {
         id: 2,
@@ -30,8 +30,8 @@ export class ProductServices {
         active: false,
         expirationDate: '2023-11-15',
         description: 'Description for Product 2',
-        type: 'Type B',
-        features: ['Feature 3', 'Feature 4'],
+        type: 'laptop',
+        features: [{ name: 'sidjasiffff' }],
       },
       {
         id: 3,
@@ -39,8 +39,8 @@ export class ProductServices {
         active: false,
         expirationDate: '2023-12-15',
         description: 'Description for Product 3',
-        type: 'Type C',
-        features: ['Feature 3', 'Feature 4'],
+        type: 'handphone',
+        features: [{ name: 'sidjasibvbvb' }],
       },
 
       {
@@ -49,8 +49,8 @@ export class ProductServices {
         active: false,
         expirationDate: '2023-11-18',
         description: 'Description for Product 4',
-        type: 'Type B',
-        features: ['Feature 3', 'Feature 4'],
+        type: 'tablet',
+        features: [{ name: 'sidjasiasas' }],
       },
 
       {
@@ -59,8 +59,8 @@ export class ProductServices {
         active: true,
         expirationDate: '2023-11-20',
         description: 'Description for Product 5',
-        type: 'Type V',
-        features: ['Feature 3', 'Feature 4'],
+        type: 'laptop',
+        features: [{ name: 'sidjasidfdfdf' }],
       },
 
       {
@@ -69,8 +69,8 @@ export class ProductServices {
         active: true,
         expirationDate: '2023-11-21',
         description: 'Description for Product 6',
-        type: 'Type P',
-        features: ['Feature 3', 'Feature 4'],
+        type: 'handphone',
+        features: [{ name: 'sidjasiytyt' }],
       },
     ];
     this.productsSubject.next(DataProducts);
@@ -94,5 +94,12 @@ export class ProductServices {
       currentProducts[productIndex] = updatedProduct;
       this.productsSubject.next(currentProducts);
     }
+  }
+  deleteProduct(productId: number) {
+    const currentProducts = this.productsSubject.value;
+    const updatedProducts = currentProducts.filter(
+      (product) => product.id !== productId
+    );
+    this.productsSubject.next(updatedProducts);
   }
 }
